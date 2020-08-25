@@ -76,10 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE & resultCode == ResultWithParcelableActivity.RESULT_CODE){
-            Account account = data.getParcelableExtra(ResultWithParcelableActivity.ACCOUNT_EXTRA);
-            name.setText(account.getNama());
-            email.setText(account.getEmail());
-            password.setText(account.getPassword());
+            if (data != null){
+                Account account = data.getParcelableExtra(ResultWithParcelableActivity.ACCOUNT_EXTRA);
+                name.setText(account.getNama());
+                email.setText(account.getEmail());
+                password.setText(account.getPassword());
+            }
         }
     }
 }
