@@ -1,5 +1,6 @@
 package com.ihfazh.intentwithparcelable;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,9 +11,12 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
+import javax.xml.transform.Result;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final int REQUEST_CODE = 100;
     private EditText name, email, password;
-    private Button save;
+    private Button save, getForResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         save.setOnClickListener(this);
+
+        getForResult = findViewById(R.id.btn_get_result_from_child);
+        getForResult.setOnClickListener(this);
     }
 
     @Override
@@ -58,6 +65,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putParcelableArrayListExtra(DetailActivity.EXTRA_PERSON, accounts);
 
             startActivity(intent);
+        } else if (view.getId() == R.id.btn_get_result_from_child){
+            Intent intent = new Intent(MainActivity.this, ResultWithParcelableActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE & resultCode == ResultWithParcelableActivity.RESULT_CODE){
+            Account account = data.getParcelableExtra(ResultWithParcelableActivity.ACCOUNT_EXTRA);
+            name.setText(account.getNama());
+            email.setText(account.getEmail());
+            password.setText(account.getPassword());
         }
     }
 }

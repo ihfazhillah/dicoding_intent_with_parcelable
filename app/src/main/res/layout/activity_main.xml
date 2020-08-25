@@ -9,6 +9,16 @@
     android:padding="10dp"
     >
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="Get Data From Child"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/btn_get_result_from_child"
+        />
+
         <EditText
             android:id="@+id/edt_nama"
             android:layout_width="match_parent"
